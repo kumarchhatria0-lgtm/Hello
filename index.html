@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Birthday Surprise ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  color: white;
+  overflow-x: hidden;
+  background: linear-gradient(-45deg, #ff6a88, #ff99ac, #ff758c, #ff7eb3);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+.hidden { display: none; }
+
+button {
+  padding: 12px 25px;
+  margin: 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  background: white;
+  color: #ff4b6e;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#countdown {
+  font-size: 90px;
+  margin-top: 40vh;
+  font-weight: bold;
+}
+
+.fade {
+  animation: fadeIn 2s;
+}
+@keyframes fadeIn {
+  from {opacity:0; transform: scale(0.8);}
+  to {opacity:1; transform: scale(1);}
+}
+
+.cake {
+  font-size: 120px;
+}
+
+.balloon {
+  font-size: 50px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.cards {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+}
+.cards img {
+  width: 220px;
+  margin: 10px;
+  border-radius: 15px;
+}
+
+.book {
+  width: 80%;
+  margin: auto;
+  padding: 25px;
+  background: #fff0f5;
+  color: black;
+  border-radius: 15px;
+  font-family: cursive;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh);}
+  100% { transform: translateY(-10vh);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="countdown">3</div>
+
+<div id="msg1" class="hidden fade">
+  <h2>A cutiepie was born today, 19 years ago ❤️</h2>
+  <h3>Yes, it's you! 😊</h3>
+  <p>A little surprise awaits...</p>
+  <button onclick="showCake()">Surprise 🎁</button>
+</div>
+
+<div id="cakeSection" class="hidden fade">
+  <div class="cake">🎂</div>
+  <button onclick="lightCandle()">Light Candle 🕯️</button>
+</div>
+
+<div id="balloonSection" class="hidden fade">
+  <h2>🎈🎈🎈🎈</h2>
+  <p>Pop all 4 balloons</p>
+  <div id="balloons">
+    <span class="balloon" onclick="pop(this)">🎈</span>
+    <span class="balloon" onclick="pop(this)">🎈</span>
+    <span class="balloon" onclick="pop(this)">🎈</span>
+    <span class="balloon" onclick="pop(this)">🎈</span>
+  </div>
+</div>
+
+<div id="memorySection" class="hidden fade">
+  <h2>Some Sweet Memories 💖</h2>
+  <p>(Swipe the cards)</p>
+
+  <div class="cards">
+    <img src="https://drive.google.com/file/d/1QBlkHnM_KNSQ2fRkCorKnUCysHSqQl1I/view?usp=drivesdk">
+    <img src="https://drive.google.com/file/d/1UhfDxiB9ToArvDpRjCWAMqisOME2I_nP/view?usp=drivesdk">
+    <img src="https://drive.google.com/file/d/1NZqNN0Ehc3osXr6if2T21WXpxAVPJeOs/view?usp=drivesdk">
+  </div>
+
+  <button onclick="showFinal()">Open My Msg 💌</button>
+</div>
+
+<div id="finalSection" class="hidden fade">
+  <div class="book">
+    <h2>Happy Birthday Butki ❤️</h2>
+    <p>
+      You really make everything around you brighter<br><br>
+      I hope your day is as amazing and special as you are🥰.<br><br>
+      Stay happy,keep smiling.....and maybe save a little smile for me
+    </p>
+  </div>
+</div>
+
+<script>
+
+let count = 3;
+let cd = document.getElementById("countdown");
+
+let interval = setInterval(() => {
+  count--;
+  cd.innerText = count;
+  if(count === 0){
+    clearInterval(interval);
+    setTimeout(()=>{
+      cd.style.display="none";
+      document.getElementById("msg1").classList.remove("hidden");
+    },1000);
+  }
+},1000);
+
+function showCake(){
+  document.getElementById("msg1").style.display="none";
+  document.getElementById("cakeSection").classList.remove("hidden");
+}
+
+function lightCandle(){
+  let text = document.createElement("h1");
+  text.innerText="Happy Birthday Butki ❤️";
+  text.className="fade";
+  document.body.appendChild(text);
+
+  document.getElementById("balloonSection").classList.remove("hidden");
+}
+
+let popped = 0;
+
+function pop(el){
+  el.innerText="you are a cutie 🥰";
+  el.onclick=null;
+  popped++;
+
+  if(popped===4){
+    document.getElementById("balloons").innerHTML="<h2>You are a cutie ❤️</h2>";
+    let btn=document.createElement("button");
+    btn.innerText="Next ➡️";
+    btn.onclick=()=>{
+      document.getElementById("balloonSection").style.display="none";
+      document.getElementById("memorySection").classList.remove("hidden");
+    };
+    document.getElementById("balloonSection").appendChild(btn);
+  }
+}
+
+function showFinal(){
+  document.getElementById("memorySection").style.display="none";
+  document.getElementById("finalSection").classList.remove("hidden");
+}
+
+/* hearts animation */
+setInterval(()=>{
+  let heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(10+Math.random()*20)+"px";
+  document.body.appendChild(heart);
+
+  setTimeout(()=>heart.remove(),6000);
+},300);
+
+</script>
+
+</body>
+</html>
